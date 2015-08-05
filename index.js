@@ -1,10 +1,31 @@
 'use strict';
-module.exports = function (str, opts) {
-  if (typeof str !== 'string') {
-    throw new TypeError('Expected a string');
-  }
+var axios = require('axios');
+var Promise = Promise || require('es6-promise').Promise;
+var cheerio = require('cheerio');
 
-  opts = opts || {};
+function fetch (identifier) {
+  return new Promise(function (resolve, reject) {
+    axios
+      .get(buildDetailUrl(identifier))
+      .then(function (value) {
+        resolve(value);
+      }).catch(function (err) {
+        reject(err);
+      });
+  });
+}
 
-  return str + ' & ' + (opts.postfix || 'rainbows');
-};
+function buildDetailUrl(identifier) {
+  return 'https://chrome.google.com/webstore/detail/' + identifier;
+}
+
+function convert(detailHtml) {
+  return new Promise(function (resolve) {
+    var $ = cheerio.load(detailHtml);
+    $;
+    resolve({meta: true});
+  });
+}
+
+module.exports.fetch = fetch;
+module.exports.convert = convert;

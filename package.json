@@ -7,7 +7,11 @@
     "email": "o.gata.ken@gmail.com",
     "url": "sane.jp"
   },
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.5.4",
+    "cheerio": "^0.19.0",
+    "es6-promise": "^2.3.0"
+  },
   "devDependencies": {
     "conventional-changelog": "^0.2.1",
     "david": "^6.1.6",
