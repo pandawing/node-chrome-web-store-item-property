@@ -2,6 +2,8 @@
 var axios = require('axios');
 var Promise = Promise || require('es6-promise').Promise;
 var cheerio = require('cheerio');
+var createErrorClass = require('create-error-class');
+var nodeStatusCodes = require('node-status-codes');
 
 function fetch (identifier) {
   return new Promise(function (resolve, reject) {
@@ -10,7 +12,7 @@ function fetch (identifier) {
       .then(function (value) {
         resolve(value);
       }).catch(function (err) {
-        reject(err);
+        reject(new HTTPError(err.status));
       });
   });
 }
@@ -27,5 +29,13 @@ function convert(detailHtml) {
   });
 }
 
+var HTTPError = createErrorClass('HTTPError', function (statusCode) {
+  this.statusCode = statusCode;
+  this.statusMessage = nodeStatusCodes[this.statusCode];
+  this.message = 'Response code ' + this.statusCode + ' (' + this.statusMessage + ')';
+});
+
+
 module.exports.fetch = fetch;
 module.exports.convert = convert;
+module.exports.HTTPError = HTTPError;
