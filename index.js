@@ -36,12 +36,16 @@ function convert(detailHtml) {
         itemProps[$(element).attr('itemprop')] = $(element).attr('content');
       }
     });
-    var splitUrl = itemProps.url.split('/');
-    itemProps['id'] = splitUrl[splitUrl.length - 1];
     if (Object.keys(itemProps).length === 0) {
-      reject(new MetaPropertyError());
+      reject(new InvalidFormatError('There is no meta property'));
       return;
     }
+    if (!itemProps.hasOwnProperty('url') || !itemProps['url']) {
+      reject(new InvalidFormatError('url in response is required'));
+      return;
+    }
+    var splitUrl = itemProps.url.split('/');
+    itemProps['id'] = splitUrl[splitUrl.length - 1];
     resolve(itemProps);
   });
 }
@@ -52,12 +56,11 @@ var HTTPError = createErrorClass('HTTPError', function (statusCode) {
   this.message = 'Response code ' + this.statusCode + ' (' + this.statusMessage + ')';
 });
 
-var MetaPropertyError = createErrorClass('MetaPropertyError', function () {
-  this.message = 'There is no meta property';
+var InvalidFormatError = createErrorClass('InvalidFormatError', function (message) {
+  this.message = message;
 });
-
 
 module.exports.fetch = fetch;
 module.exports.convert = convert;
 module.exports.HTTPError = HTTPError;
-module.exports.MetaPropertyError = MetaPropertyError;
+module.exports.InvalidFormatError = InvalidFormatError;
