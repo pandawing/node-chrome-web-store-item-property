@@ -1,6 +1,6 @@
 'use strict';
 var assert = require('power-assert');
-var chromeWebstoreItemProperty = require('./');
+var chromeWebStoreItemProperty = require('./');
 var nock = require('nock');
 var path = require('path');
 var shouldFulfilled = require('promise-test-helper').shouldFulfilled;
@@ -13,7 +13,7 @@ describe('#fetch', function () {
         .get('/webstore/detail/' + identifier)
         .replyWithFile(200, path.join(__dirname, identifier));
       return shouldFulfilled(
-        chromeWebstoreItemProperty
+        chromeWebStoreItemProperty
           .fetch(identifier)
       ).then(function (value) {
           assert(value);
