@@ -11,7 +11,7 @@ describe('#fetch', function () {
     it('should return fetched data', function () {
       nock('https://chrome.google.com')
         .get('/webstore/detail/' + identifier)
-        .replyWithFile(200, path.join(__dirname, identifier));
+        .replyWithFile(200, path.join(__dirname, 'fixtures', identifier));
       return shouldFulfilled(
         chromeWebStoreItemProperty
           .fetch(identifier)
