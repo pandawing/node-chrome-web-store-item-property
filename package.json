@@ -1,5 +1,5 @@
 {
-  "name": "chrome-webstore-item-property",
+  "name": "chrome-web-store-item-property",
   "description": "My spectacular module",
   "version": "0.0.0",
   "author": {
@@ -37,7 +37,7 @@
     ""
   ],
   "license": "MIT",
-  "repository": "sanemat/chrome-webstore-item-property",
+  "repository": "sanemat/chrome-web-store-item-property",
   "scripts": {
     "changelog": "touch changelog.md && conventional-changelog -i changelog.md --overwrite --preset angular",
     "david": "david update",
