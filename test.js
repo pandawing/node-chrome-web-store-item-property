@@ -66,4 +66,15 @@ describe('#convert', function () {
         });
     });
   });
+  context('meta data does not exist', function () {
+    var html = '<html><body><meta charset="utf-8"></body></html>';
+    it('should return error', function () {
+      return shouldRejected(
+        chromeWebStoreItemProperty
+          .convert(html)
+      ).catch(function (err) {
+        assert(err instanceof chromeWebStoreItemProperty.InvalidFormatError);
+      });
+    });
+  });
 });
