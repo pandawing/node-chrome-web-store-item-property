@@ -16,6 +16,11 @@ var defaultConfig = {
   }
 };
 
+function run (identifier, userConfig) {
+  return get(identifier, userConfig)
+    .then(convert);
+}
+
 function get (identifier, userConfig) {
   return new Promise(function (resolve, reject) {
     var config = mergeConfig(userConfig);
@@ -88,6 +93,7 @@ var InvalidFormatError = createErrorClass('InvalidFormatError', function (messag
   this.message = message;
 });
 
+module.exports = run;
 module.exports.get = get;
 module.exports.convert = convert;
 module.exports.HTTPError = HTTPError;
