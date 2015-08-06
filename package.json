@@ -1,6 +1,6 @@
 {
   "name": "chrome-web-store-item-property",
-  "description": "My spectacular module",
+  "description": "Gather meta information from chrome web store",
   "version": "0.0.0",
   "author": {
     "name": "sanemat",
@@ -37,10 +37,14 @@
     "index.js"
   ],
   "keywords": [
-    ""
+    "api",
+    "chrome",
+    "chrome-web-store",
+    "web-store",
+    "webstore"
   ],
   "license": "MIT",
-  "repository": "sanemat/chrome-web-store-item-property",
+  "repository": "pandawing/node-chrome-web-store-item-property",
   "scripts": {
     "changelog": "touch changelog.md && conventional-changelog -i changelog.md --overwrite --preset angular",
     "david": "david update",
