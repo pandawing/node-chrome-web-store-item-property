@@ -39,7 +39,12 @@
   "keywords": [
     "api",
     "chrome",
+    "chrome-app",
+    "chrome-extension",
+    "chrome-theme",
     "chrome-web-store",
+    "itemprop",
+    "meta",
     "web-store",
     "webstore"
   ],
