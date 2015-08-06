@@ -7,16 +7,16 @@ var shouldFulfilled = require('promise-test-helper').shouldFulfilled;
 var shouldRejected = require('promise-test-helper').shouldRejected;
 var fs = require('fs');
 
-describe('#fetch', function () {
+describe('#get', function () {
   var identifier = 'nimelepbpejjlbmoobocpfnjhihnpked';
   context('resource exists', function () {
     it('should return fetched data', function () {
       nock('https://chrome.google.com')
-        .get('/webstore/detail/' + identifier)
+        .get('/webstore/detail/' + identifier + '?hl=en&gl=US')
         .replyWithFile(200, path.join(__dirname, 'fixtures', identifier));
       return shouldFulfilled(
         chromeWebStoreItemProperty
-          .fetch(identifier)
+          .get(identifier)
       ).then(function (value) {
           assert(value);
         });
@@ -25,11 +25,11 @@ describe('#fetch', function () {
   context('resource does not exist', function () {
     it('should return error', function () {
       nock('https://chrome.google.com')
-        .get('/webstore/detail/' + identifier)
+        .get('/webstore/detail/' + identifier + '?hl=en&gl=US')
         .reply(404);
       return shouldRejected(
         chromeWebStoreItemProperty
-          .fetch(identifier)
+          .get(identifier)
       ).catch(function (err) {
         assert(err instanceof chromeWebStoreItemProperty.HTTPError);
       });
