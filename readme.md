@@ -2,7 +2,9 @@
 
 [![NPM version][npm-image]][npm-url] [![Travis-CI Status][travis-image]][travis-url] [![Appveyor Status][appveyor-image]][appveyor-url] [![Daviddm Status][daviddm-image]][daviddm-url]
 
-> My spectacular module
+> Gather meta information from chrome web store.
+
+For example: version, count of downloads and rating.
 
 
 ## Install
@@ -17,31 +19,70 @@ $ npm install --save chrome-web-store-item-property
 ```js
 var chromeWebStoreItemProperty = require('chrome-web-store-item-property');
 
-chromeWebStoreItemProperty('unicorns');
-//=> unicorns & rainbows
+chromeWebStoreItemProperty('nimelepbpejjlbmoobocpfnjhihnpked')
+  .then(function (value) {
+  console.log(value);
+  // => {
+  //  name: 'Do Not Merge WIP for GitHub',
+  //  url: 'https://chrome.google.com/webstore/detail/do-not-merge-wip-for-gith/nimelepbpejjlbmoobocpfnjhihnpked',
+  //  image: 'https://ssl.gstatic.com/chrome/webstore/images/thumb.png',
+  //  version: '1.0.6',
+  //  price: '$0',
+  //  priceCurrency: 'USD',
+  //  interactionCount: {
+  //   UserDownloads: '418'
+  //  },
+  //  operatingSystems: 'Chrome',
+  //  ratingValue: '4.5',
+  //  ratingCount: '2',
+  //  id: 'nimelepbpejjlbmoobocpfnjhihnpked'
+  // };
+  });
 ```
 
 
 
 ## API
 
-### chromeWebStoreItemProperty(input, [options])
+### chromeWebStoreItemProperty(identifier[, config]) -> Promise
 
-#### input
+#### identifier
 
 *Required*  
 Type: `string`
 
-Lorem ipsum.
+ID for Chrome Web Store.
 
-#### options
 
-##### foo
+#### config
 
-Type: `boolean`  
-Default: `false`
+Pass [axios's config](https://github.com/mzabriskie/axios#request-api)
 
-Lorem ipsum.
+
+### chromeWebStoreItemProperty.get(identifier[, config]) -> Promise
+
+
+#### identifier
+
+*Required*  
+Type: `string`
+
+ID for Chrome Web Store.
+
+
+#### config
+
+Pass [axios's config](https://github.com/mzabriskie/axios#request-api)
+
+
+### chromeWebStoreItemProperty.convert(detailHtml) -> Promise
+
+
+## Errors
+
+### chromeWebStoreItemProperty.HTTPError
+
+### chromeWebStoreItemProperty.InvalidFormatError
 
 
 ## Changelog
