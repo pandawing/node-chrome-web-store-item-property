@@ -22,10 +22,27 @@ function buildDetailUrl(identifier) {
 }
 
 function convert(detailHtml) {
-  return new Promise(function (resolve) {
+  return new Promise(function (resolve, reject) {
     var $ = cheerio.load(detailHtml);
-    $;
-    resolve({meta: true});
+    var itemProps = {};
+    $('meta[itemprop]').each(function (index, element) {
+      // Split content like <meta itemprop="interactionCount" content="UserDownloads:418" />
+      if ($(element).attr('itemprop') === 'interactionCount' &&
+        $(element).attr('content').indexOf(':') !== -1) {
+        var keyValue = $(element).attr('content').split(':', 2);
+        itemProps[$(element).attr('itemprop')] = itemProps[$(element).attr('itemprop')] || {};
+        itemProps[$(element).attr('itemprop')][keyValue[0]] = keyValue[1];
+      } else {
+        itemProps[$(element).attr('itemprop')] = $(element).attr('content');
+      }
+    });
+    var splitUrl = itemProps.url.split('/');
+    itemProps['id'] = splitUrl[splitUrl.length - 1];
+    if (Object.keys(itemProps).length === 0) {
+      reject(new MetaPropertyError());
+      return;
+    }
+    resolve(itemProps);
   });
 }
 
@@ -35,7 +52,12 @@ var HTTPError = createErrorClass('HTTPError', function (statusCode) {
   this.message = 'Response code ' + this.statusCode + ' (' + this.statusMessage + ')';
 });
 
+var MetaPropertyError = createErrorClass('MetaPropertyError', function () {
+  this.message = 'There is no meta property';
+});
+
 
 module.exports.fetch = fetch;
 module.exports.convert = convert;
 module.exports.HTTPError = HTTPError;
+module.exports.MetaPropertyError = MetaPropertyError;
