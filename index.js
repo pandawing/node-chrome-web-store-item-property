@@ -4,17 +4,45 @@ var Promise = Promise || require('es6-promise').Promise;
 var cheerio = require('cheerio');
 var createErrorClass = require('create-error-class');
 var nodeStatusCodes = require('node-status-codes');
+var objectAssign = require('object-assign');
 
-function fetch (identifier) {
+var defaultConfig = {
+  headers: {
+    'User-Agent': 'https://github.com/pandawing/node-chrome-web-store-item-property'
+  },
+  params: {
+    hl: 'en',
+    gl: 'US'
+  }
+};
+
+function get (identifier, userConfig) {
   return new Promise(function (resolve, reject) {
+    var config = mergeConfig(userConfig);
     axios
-      .get(buildDetailUrl(identifier))
+      .get(buildDetailUrl(identifier), config)
       .then(function (value) {
         resolve(value);
       }).catch(function (err) {
         reject(new HTTPError(err.status));
       });
   });
+}
+
+function mergeConfig(userConfig) {
+  userConfig = userConfig || {};
+  var opts = objectAssign({}, defaultConfig, userConfig);
+  var headerCandidate = [{}, defaultConfig.headers];
+  if (userConfig.hasOwnProperty('headers')) {
+    headerCandidate.push(userConfig.headers);
+  }
+  opts.headers = objectAssign.apply(null, headerCandidate);
+  var paramsCandidate = [{}, defaultConfig.params];
+  if (userConfig.hasOwnProperty('params')) {
+    paramsCandidate.push(userConfig.params);
+  }
+  opts.params = objectAssign.apply(null, paramsCandidate);
+  return opts;
 }
 
 function buildDetailUrl(identifier) {
@@ -60,7 +88,7 @@ var InvalidFormatError = createErrorClass('InvalidFormatError', function (messag
   this.message = message;
 });
 
-module.exports.fetch = fetch;
+module.exports.get = get;
 module.exports.convert = convert;
 module.exports.HTTPError = HTTPError;
 module.exports.InvalidFormatError = InvalidFormatError;
