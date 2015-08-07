@@ -1,3 +1,13 @@
+<a name="0.2.0"></a>
+# 0.2.0 (2015-08-07)
+
+
+### Bug Fixes
+
+* **get:** use request instead of axios, because of follow redirection ([ce64442](https://github.com/pandawing/node-chrome-web-store-item-property/commit/ce64442)), closes [#9](https://github.com/pandawing/node-chrome-web-store-item-property/issues/9)
+
+
+
 <a name="0.1.0"></a>
 # 0.1.0 (2015-08-06)
 
