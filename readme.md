@@ -56,7 +56,7 @@ ID for Chrome Web Store.
 
 #### config
 
-Pass [axios's config](https://github.com/mzabriskie/axios#request-api)
+Pass [request's available options](https://github.com/request/request#requestoptions-callback)
 
 
 ### chromeWebStoreItemProperty.get(identifier[, config]) -> Promise
@@ -72,7 +72,7 @@ ID for Chrome Web Store.
 
 #### config
 
-Pass [axios's config](https://github.com/mzabriskie/axios#request-api)
+Pass [request's available options](https://github.com/request/request#requestoptions-callback)
 
 
 ### chromeWebStoreItemProperty.convert(detailHtml) -> Promise
