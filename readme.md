@@ -6,6 +6,8 @@
 
 For example: version, count of downloads and rating.
 
+See [chrome-web-store-item-property-cli](https://github.com/pandawing/node-chrome-web-store-item-property-cli) for the command-line version.
+
 
 ## Install
 
