@@ -1,16 +1,17 @@
 'use strict';
-var axios = require('axios');
+var request = require('request');
 var Promise = Promise || require('es6-promise').Promise;
 var cheerio = require('cheerio');
 var createErrorClass = require('create-error-class');
 var nodeStatusCodes = require('node-status-codes');
 var objectAssign = require('object-assign');
+var isOk = require('is-ok');
 
 var defaultConfig = {
   headers: {
     'User-Agent': 'https://github.com/pandawing/node-chrome-web-store-item-property'
   },
-  params: {
+  qs: {
     hl: 'en',
     gl: 'US'
   }
@@ -23,30 +24,35 @@ function run (identifier, userConfig) {
 
 function get (identifier, userConfig) {
   return new Promise(function (resolve, reject) {
-    var config = mergeConfig(userConfig);
-    axios
-      .get(buildDetailUrl(identifier), config)
-      .then(function (value) {
-        resolve(value);
-      }).catch(function (err) {
-        reject(new HTTPError(err.status));
-      });
+    var config = mergeConfig(buildDetailUrl(identifier), userConfig);
+    request(config, function (error, response, body) {
+      if (error) {
+        reject(error);
+        return;
+      }
+      if (!isOk(response)) {
+        reject(new HTTPError(response.statusCode));
+        return;
+      }
+      resolve(body);
+    });
   });
 }
 
-function mergeConfig(userConfig) {
+function mergeConfig(url, userConfig) {
   userConfig = userConfig || {};
   var opts = objectAssign({}, defaultConfig, userConfig);
+  opts.url = url;
   var headerCandidate = [{}, defaultConfig.headers];
   if (userConfig.hasOwnProperty('headers')) {
     headerCandidate.push(userConfig.headers);
   }
   opts.headers = objectAssign.apply(null, headerCandidate);
-  var paramsCandidate = [{}, defaultConfig.params];
-  if (userConfig.hasOwnProperty('params')) {
-    paramsCandidate.push(userConfig.params);
+  var qsCandidate = [{}, defaultConfig.qs];
+  if (userConfig.hasOwnProperty('qs')) {
+    qsCandidate.push(userConfig.qs);
   }
-  opts.params = objectAssign.apply(null, paramsCandidate);
+  opts.qs = objectAssign.apply(null, qsCandidate);
   return opts;
 }
 
