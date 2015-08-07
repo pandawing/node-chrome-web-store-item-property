@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "chrome-web-store-item-property": "file:.."
+  }
+}
