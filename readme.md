@@ -63,6 +63,18 @@ ID for Chrome Web Store.
 
 Pass [request's available options](https://github.com/request/request#requestoptions-callback)
 
+```js
+var defaultConfig = {
+  headers: {
+    'User-Agent': 'https://github.com/pandawing/node-chrome-web-store-item-property'
+  },
+  qs: {
+    hl: 'en',
+    gl: 'US'
+  }
+};
+```
+
 
 ### chromeWebStoreItemProperty.get(identifier[, config]) -> Promise
 
@@ -79,6 +91,17 @@ ID for Chrome Web Store.
 
 Pass [request's available options](https://github.com/request/request#requestoptions-callback)
 
+```js
+var defaultConfig = {
+  headers: {
+    'User-Agent': 'https://github.com/pandawing/node-chrome-web-store-item-property'
+  },
+  qs: {
+    hl: 'en',
+    gl: 'US'
+  }
+};
+```
 
 ### chromeWebStoreItemProperty.convert(detailHtml) -> Promise
 
