@@ -20,6 +20,8 @@ $ npm install --save chrome-web-store-item-property
 
 ```js
 var chromeWebStoreItemProperty = require('chrome-web-store-item-property');
+// or
+<script src="build/chrome-web-store-item-property.js"></script>
 
 chromeWebStoreItemProperty('nimelepbpejjlbmoobocpfnjhihnpked')
   .then(function (value) {
