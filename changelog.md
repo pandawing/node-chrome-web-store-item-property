@@ -1,3 +1,14 @@
+<a name="1.0.0"></a>
+# 1.0.0 (2015-08-07)
+
+* Add example
+
+### Features
+
+* **build:** build package for browser ([796c5af](https://github.com/pandawing/node-chrome-web-store-item-property/commit/796c5af)), closes [#11](https://github.com/pandawing/node-chrome-web-store-item-property/issues/11)
+
+
+
 <a name="0.2.0"></a>
 # 0.2.0 (2015-08-07)
 
