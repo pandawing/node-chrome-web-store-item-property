@@ -2,10 +2,12 @@
 var request = require('request');
 var Promise = Promise || require('es6-promise').Promise;
 var cheerio = require('cheerio');
-var createErrorClass = require('create-error-class');
-var nodeStatusCodes = require('node-status-codes');
 var objectAssign = require('object-assign');
 var isOk = require('is-ok');
+
+var errors = require('./src/error');
+var HTTPError = errors.HTTPError;
+var InvalidFormatError = errors.InvalidFormatError;
 
 var defaultConfig = {
   headers: {
@@ -88,16 +90,6 @@ function convert(detailHtml) {
     resolve(itemProps);
   });
 }
-
-var HTTPError = createErrorClass('HTTPError', function (statusCode) {
-  this.statusCode = statusCode;
-  this.statusMessage = nodeStatusCodes[this.statusCode];
-  this.message = 'Response code ' + this.statusCode + ' (' + this.statusMessage + ')';
-});
-
-var InvalidFormatError = createErrorClass('InvalidFormatError', function (message) {
-  this.message = message;
-});
 
 module.exports = run;
 module.exports.get = get;
