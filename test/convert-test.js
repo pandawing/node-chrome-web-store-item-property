@@ -19,11 +19,11 @@ describe('convert', function () {
       price: '$0',
       priceCurrency: 'USD',
       interactionCount: {
-        UserDownloads: '418'
+        UserDownloads: 418
       },
       operatingSystems: 'Chrome',
-      ratingValue: '4.5',
-      ratingCount: '2',
+      ratingValue: 4.5,
+      ratingCount: 2,
       id: 'nimelepbpejjlbmoobocpfnjhihnpked'
     };
     it('should return meta itemprop', function () {
@@ -31,6 +31,9 @@ describe('convert', function () {
         convert(html)
       ).then(function (value) {
           assert.deepEqual(value, expected);
+          assert.strictEqual(value.ratingCount, expected.ratingCount);
+          assert.strictEqual(value.ratingValue, expected.ratingValue);
+          assert.strictEqual(value.interactionCount.UserDownloads, expected.interactionCount.UserDownloads);
         }).catch(function (err) {
           throw err;
         });
