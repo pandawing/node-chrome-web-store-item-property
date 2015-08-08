@@ -1,112 +1,25 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.chromeWebStoreItemProperty = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 'use strict';
-var request = _dereq_('request');
-var Promise = Promise || _dereq_('es6-promise').Promise;
-var cheerio = _dereq_('cheerio');
-var createErrorClass = _dereq_('create-error-class');
-var nodeStatusCodes = _dereq_('node-status-codes');
-var objectAssign = _dereq_('object-assign');
-var isOk = _dereq_('is-ok');
 
-var defaultConfig = {
-  headers: {
-    'User-Agent': 'https://github.com/pandawing/node-chrome-web-store-item-property'
-  },
-  qs: {
-    hl: 'en',
-    gl: 'US'
-  }
-};
+var HTTPError = _dereq_('./src/error').HTTPError;
+var InvalidFormatError = _dereq_('./src/error').InvalidFormatError;
+var convert = _dereq_('./src/convert');
+var get = _dereq_('./src/get');
+var defaultConfig = get.defaultConfig;
 
 function run (identifier, userConfig) {
   return get(identifier, userConfig)
     .then(convert);
 }
 
-function get (identifier, userConfig) {
-  return new Promise(function (resolve, reject) {
-    var config = mergeConfig(buildDetailUrl(identifier), userConfig);
-    request(config, function (error, response, body) {
-      if (error) {
-        reject(error);
-        return;
-      }
-      if (!isOk(response)) {
-        reject(new HTTPError(response.statusCode));
-        return;
-      }
-      resolve(body);
-    });
-  });
-}
-
-function mergeConfig(url, userConfig) {
-  userConfig = userConfig || {};
-  var opts = objectAssign({}, defaultConfig, userConfig);
-  opts.url = url;
-  var headerCandidate = [{}, defaultConfig.headers];
-  if (userConfig.hasOwnProperty('headers')) {
-    headerCandidate.push(userConfig.headers);
-  }
-  opts.headers = objectAssign.apply(null, headerCandidate);
-  var qsCandidate = [{}, defaultConfig.qs];
-  if (userConfig.hasOwnProperty('qs')) {
-    qsCandidate.push(userConfig.qs);
-  }
-  opts.qs = objectAssign.apply(null, qsCandidate);
-  return opts;
-}
-
-function buildDetailUrl(identifier) {
-  return 'https://chrome.google.com/webstore/detail/' + identifier;
-}
-
-function convert(detailHtml) {
-  return new Promise(function (resolve, reject) {
-    var $ = cheerio.load(detailHtml);
-    var itemProps = {};
-    $('meta[itemprop]').each(function (index, element) {
-      // Split content like <meta itemprop="interactionCount" content="UserDownloads:418" />
-      if ($(element).attr('itemprop') === 'interactionCount' &&
-        $(element).attr('content').indexOf(':') !== -1) {
-        var keyValue = $(element).attr('content').split(':', 2);
-        itemProps[$(element).attr('itemprop')] = itemProps[$(element).attr('itemprop')] || {};
-        itemProps[$(element).attr('itemprop')][keyValue[0]] = keyValue[1];
-      } else {
-        itemProps[$(element).attr('itemprop')] = $(element).attr('content');
-      }
-    });
-    if (Object.keys(itemProps).length === 0) {
-      reject(new InvalidFormatError('There is no meta property'));
-      return;
-    }
-    if (!itemProps.hasOwnProperty('url') || !itemProps['url']) {
-      reject(new InvalidFormatError('url in response is required'));
-      return;
-    }
-    var splitUrl = itemProps.url.split('/');
-    itemProps['id'] = splitUrl[splitUrl.length - 1];
-    resolve(itemProps);
-  });
-}
-
-var HTTPError = createErrorClass('HTTPError', function (statusCode) {
-  this.statusCode = statusCode;
-  this.statusMessage = nodeStatusCodes[this.statusCode];
-  this.message = 'Response code ' + this.statusCode + ' (' + this.statusMessage + ')';
-});
-
-var InvalidFormatError = createErrorClass('InvalidFormatError', function (message) {
-  this.message = message;
-});
-
 module.exports = run;
 module.exports.get = get;
 module.exports.convert = convert;
 module.exports.HTTPError = HTTPError;
 module.exports.InvalidFormatError = InvalidFormatError;
+module.exports.defaultConfig = defaultConfig;
 
-},{"cheerio":206,"create-error-class":271,"es6-promise":274,"is-ok":275,"node-status-codes":276,"object-assign":277,"request":278}],2:[function(_dereq_,module,exports){
+},{"./src/convert":370,"./src/error":371,"./src/get":372}],2:[function(_dereq_,module,exports){
 
 },{}],3:[function(_dereq_,module,exports){
 // http://wiki.commonjs.org/wiki/Unit_Testing/1.0
@@ -69852,5 +69765,127 @@ Request.prototype.toJSON = requestToJSON
 module.exports = Request
 
 }).call(this,_dereq_('_process'),_dereq_("buffer").Buffer)
-},{"./lib/auth":279,"./lib/cookies":280,"./lib/getProxyFromURI":281,"./lib/har":282,"./lib/helpers":283,"./lib/multipart":284,"./lib/oauth":285,"./lib/querystring":286,"./lib/redirect":287,"./lib/tunnel":288,"_process":171,"aws-sign2":289,"bl":290,"buffer":18,"caseless":301,"forever-agent":305,"form-data":306,"hawk":332,"http":190,"http-signature":333,"https":167,"mime-types":350,"stream":189,"stringstream":359,"url":200,"util":202,"zlib":17}]},{},[1])(1)
+},{"./lib/auth":279,"./lib/cookies":280,"./lib/getProxyFromURI":281,"./lib/har":282,"./lib/helpers":283,"./lib/multipart":284,"./lib/oauth":285,"./lib/querystring":286,"./lib/redirect":287,"./lib/tunnel":288,"_process":171,"aws-sign2":289,"bl":290,"buffer":18,"caseless":301,"forever-agent":305,"form-data":306,"hawk":332,"http":190,"http-signature":333,"https":167,"mime-types":350,"stream":189,"stringstream":359,"url":200,"util":202,"zlib":17}],369:[function(_dereq_,module,exports){
+module.exports = function (identifier) {
+  return 'https://chrome.google.com/webstore/detail/' + identifier;
+};
+
+},{}],370:[function(_dereq_,module,exports){
+'use strict';
+var InvalidFormatError = _dereq_('./error').InvalidFormatError;
+var Promise = Promise || _dereq_('es6-promise').Promise;
+var cheerio = _dereq_('cheerio');
+
+function convert(detailHtml) {
+  return new Promise(function (resolve, reject) {
+    var $ = cheerio.load(detailHtml);
+    var itemProps = {};
+    $('meta[itemprop]').each(function (index, element) {
+      // Split content like <meta itemprop="interactionCount" content="UserDownloads:418" />
+      if ($(element).attr('itemprop') === 'interactionCount' &&
+        $(element).attr('content').indexOf(':') !== -1) {
+        var keyValue = $(element).attr('content').split(':', 2);
+        itemProps[$(element).attr('itemprop')] = itemProps[$(element).attr('itemprop')] || {};
+        itemProps[$(element).attr('itemprop')][keyValue[0]] = keyValue[1];
+      } else {
+        itemProps[$(element).attr('itemprop')] = $(element).attr('content');
+      }
+    });
+    if (Object.keys(itemProps).length === 0) {
+      reject(new InvalidFormatError('There is no meta property'));
+      return;
+    }
+    if (!itemProps.hasOwnProperty('url') || !itemProps['url']) {
+      reject(new InvalidFormatError('url in response is required'));
+      return;
+    }
+    var splitUrl = itemProps.url.split('/');
+    itemProps['id'] = splitUrl[splitUrl.length - 1];
+    resolve(itemProps);
+  });
+}
+
+module.exports = convert;
+
+},{"./error":371,"cheerio":206,"es6-promise":274}],371:[function(_dereq_,module,exports){
+'use strict';
+var createErrorClass = _dereq_('create-error-class');
+var nodeStatusCodes = _dereq_('node-status-codes');
+
+module.exports.HTTPError = createErrorClass('HTTPError', function (statusCode) {
+  this.statusCode = statusCode;
+  this.statusMessage = nodeStatusCodes[this.statusCode];
+  this.message = 'Response code ' + this.statusCode + ' (' + this.statusMessage + ')';
+});
+
+module.exports.InvalidFormatError = createErrorClass('InvalidFormatError', function (message) {
+  this.message = message;
+});
+
+},{"create-error-class":271,"node-status-codes":276}],372:[function(_dereq_,module,exports){
+var request = _dereq_('request');
+var Promise = Promise || _dereq_('es6-promise').Promise;
+var isOk = _dereq_('is-ok');
+
+var HTTPError = _dereq_('./error').HTTPError;
+var buildDetailUrl = _dereq_('./build-detail-url');
+var mergeConfig = _dereq_('./merge-config');
+var defaultConfig = {
+  headers: {
+    'User-Agent': 'https://github.com/pandawing/node-chrome-web-store-item-property'
+  },
+  qs: {
+    hl: 'en',
+    gl: 'US'
+  }
+};
+
+function get (identifier, userConfig) {
+  return new Promise(function (resolve, reject) {
+    var config = mergeConfig(buildDetailUrl(identifier), defaultConfig, userConfig);
+    request(config, function (error, response, body) {
+      if (error) {
+        reject(error);
+        return;
+      }
+      if (!isOk(response)) {
+        reject(new HTTPError(response.statusCode));
+        return;
+      }
+      resolve(body);
+    });
+  });
+}
+
+module.exports = get;
+module.exports.defaultConfig = defaultConfig;
+
+},{"./build-detail-url":369,"./error":371,"./merge-config":373,"es6-promise":274,"is-ok":275,"request":278}],373:[function(_dereq_,module,exports){
+var objectAssign = _dereq_('object-assign');
+
+module.exports = function (url, defaultConfig, userConfig) {
+  userConfig = userConfig || {};
+  defaultConfig = defaultConfig || {};
+  var opts = objectAssign({}, defaultConfig, userConfig);
+  opts.url = url;
+  var headerCandidate = [{}];
+  if (defaultConfig.hasOwnProperty('headers')) {
+    headerCandidate.push(defaultConfig.headers);
+  }
+  if (userConfig.hasOwnProperty('headers')) {
+    headerCandidate.push(userConfig.headers);
+  }
+  opts.headers = objectAssign.apply(null, headerCandidate);
+  var qsCandidate = [{}];
+  if (defaultConfig.hasOwnProperty('qs')) {
+    qsCandidate.push(defaultConfig.qs);
+  }
+  if (userConfig.hasOwnProperty('qs')) {
+    qsCandidate.push(userConfig.qs);
+  }
+  opts.qs = objectAssign.apply(null, qsCandidate);
+  return opts;
+};
+
+},{"object-assign":277}]},{},[1])(1)
 });
