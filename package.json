@@ -38,7 +38,8 @@
   },
   "files": [
     "index.js",
-    "build"
+    "build",
+    "src"
   ],
   "keywords": [
     "api",
