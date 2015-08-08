@@ -1,6 +1,6 @@
 'use strict';
 var assert = require('power-assert');
-var chromeWebStoreItemProperty = require('./');
+var chromeWebStoreItemProperty = require('../');
 var nock = require('nock');
 var path = require('path');
 var shouldFulfilled = require('promise-test-helper').shouldFulfilled;

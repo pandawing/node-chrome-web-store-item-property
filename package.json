@@ -59,11 +59,11 @@
     "changelog": "touch changelog.md && conventional-changelog -i changelog.md --overwrite --preset angular",
     "david": "david update",
     "eclint": "globstar --ignore \"node_modules/**\" -- eclint check \"*.{js,yml,md,json}\"",
-    "eslint": "eslint --ignore-path .gitignore ./example index.js test.js",
+    "eslint": "eslint --ignore-path .gitignore ./example ./src ./test index.js",
     "fixpack": "fixpack",
     "git:tag": "git tag v${npm_package_version}",
     "lint": "npm run eclint && npm run eslint",
-    "test": "mocha --require ./enable-power-assert.js -- ./test.js",
+    "test": "mocha --require ./enable-power-assert.js -- ./test/*test.js",
     "verify": "npm run lint && npm run test"
   }
 }
