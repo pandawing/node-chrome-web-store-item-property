@@ -1,43 +1,14 @@
 'use strict';
 var assert = require('power-assert');
-var chromeWebStoreItemProperty = require('./');
-var nock = require('nock');
 var path = require('path');
 var shouldFulfilled = require('promise-test-helper').shouldFulfilled;
 var shouldRejected = require('promise-test-helper').shouldRejected;
 var fs = require('fs');
 
-describe('#get', function () {
-  var identifier = 'nimelepbpejjlbmoobocpfnjhihnpked';
-  context('resource exists', function () {
-    it('should return fetched data', function () {
-      nock('https://chrome.google.com')
-        .get('/webstore/detail/' + identifier + '?hl=en&gl=US')
-        .replyWithFile(200, path.join(__dirname, 'fixtures', identifier));
-      return shouldFulfilled(
-        chromeWebStoreItemProperty
-          .get(identifier)
-      ).then(function (value) {
-          assert(value);
-        });
-    });
-  });
-  context('resource does not exist', function () {
-    it('should return error', function () {
-      nock('https://chrome.google.com')
-        .get('/webstore/detail/' + identifier + '?hl=en&gl=US')
-        .reply(404);
-      return shouldRejected(
-        chromeWebStoreItemProperty
-          .get(identifier)
-      ).catch(function (err) {
-        assert(err instanceof chromeWebStoreItemProperty.HTTPError);
-      });
-    });
-  });
-});
+var convert = require('../src/convert');
+var InvalidFormatError = require('../src/error').InvalidFormatError;
 
-describe('#convert', function () {
+describe('convert', function () {
   context('meta data exists', function () {
     var html = fs.readFileSync(path.join(__dirname, 'fixtures', 'nimelepbpejjlbmoobocpfnjhihnpked'), 'utf8');
     var expected = {
@@ -57,8 +28,7 @@ describe('#convert', function () {
     };
     it('should return meta itemprop', function () {
       return shouldFulfilled(
-        chromeWebStoreItemProperty
-          .convert(html)
+        convert(html)
       ).then(function (value) {
           assert.deepEqual(value, expected);
         }).catch(function (err) {
@@ -70,11 +40,10 @@ describe('#convert', function () {
     var html = '<html><body><meta charset="utf-8"></body></html>';
     it('should return error', function () {
       return shouldRejected(
-        chromeWebStoreItemProperty
-          .convert(html)
+        convert(html)
       ).catch(function (err) {
-        assert(err instanceof chromeWebStoreItemProperty.InvalidFormatError);
-      });
+          assert(err instanceof InvalidFormatError);
+        });
     });
   });
 });
