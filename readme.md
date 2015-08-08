@@ -35,11 +35,11 @@ chromeWebStoreItemProperty('nimelepbpejjlbmoobocpfnjhihnpked')
     //  price: '$0',
     //  priceCurrency: 'USD',
     //  interactionCount: {
-    //    UserDownloads: '418'
+    //    UserDownloads: 418
     //  },
     //  operatingSystems: 'Chrome',
-    //  ratingValue: '4.5',
-    //  ratingCount: '2',
+    //  ratingValue: 4.5,
+    //  ratingCount: 2,
     //  id: 'nimelepbpejjlbmoobocpfnjhihnpked'
     //};
   });
