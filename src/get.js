@@ -4,6 +4,7 @@ var objectAssign = require('object-assign');
 var isOk = require('is-ok');
 
 var HTTPError = require('./error').HTTPError;
+var buildDetailUrl = require('./build-detail-url');
 var defaultConfig = {
   headers: {
     'User-Agent': 'https://github.com/pandawing/node-chrome-web-store-item-property'
@@ -46,10 +47,6 @@ function mergeConfig(url, userConfig) {
   }
   opts.qs = objectAssign.apply(null, qsCandidate);
   return opts;
-}
-
-function buildDetailUrl(identifier) {
-  return 'https://chrome.google.com/webstore/detail/' + identifier;
 }
 
 module.exports = get;
