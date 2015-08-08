@@ -56,7 +56,7 @@
   "license": "MIT",
   "repository": "pandawing/node-chrome-web-store-item-property",
   "scripts": {
-    "build:browser": "npm prune && npm dedupe && browserify --standalone chromeWebStoreItemProperty ./index.js | derequire > build/chrome-web-store-item-property.js",
+    "build:browser": "npm update && npm prune && npm dedupe && browserify --standalone chromeWebStoreItemProperty ./index.js | derequire > build/chrome-web-store-item-property.js",
     "changelog": "touch changelog.md && conventional-changelog -i changelog.md --overwrite --preset angular",
     "david": "david update",
     "eclint": "globstar --ignore \"node_modules/**\" -- eclint check \"*.{js,yml,md,json}\"",
