@@ -9,8 +9,8 @@ describe('merge-config', function () {
     var expected = {
       'url': 'http://example.com',
       'headers': {
-          'User-Agent': 'https://github.com/pandawing/node-chrome-web-store-item-property'
-        },
+        'User-Agent': 'https://github.com/pandawing/node-chrome-web-store-item-property'
+      },
       'qs': {
         'gl': 'US',
         'hl': 'en'
