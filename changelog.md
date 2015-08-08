@@ -1,3 +1,14 @@
+<a name="1.1.0"></a>
+# 1.1.0 (2015-08-08)
+
+
+### Features
+
+* **convert:** ratingCount, ratingValue, UserDownloads to float ([3d9aa67](https://github.com/pandawing/node-chrome-web-store-item-property/commit/3d9aa67)), closes [#14](https://github.com/pandawing/node-chrome-web-store-item-property/issues/14)
+* **parse-float-with-comma:** implement ([df234f3](https://github.com/pandawing/node-chrome-web-store-item-property/commit/df234f3))
+
+
+
 <a name="1.0.1"></a>
 ## 1.0.1 (2015-08-08)
 
