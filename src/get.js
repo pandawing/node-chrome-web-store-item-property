@@ -53,3 +53,4 @@ function buildDetailUrl(identifier) {
 }
 
 module.exports = get;
+module.exports.defaultConfig = defaultConfig;
