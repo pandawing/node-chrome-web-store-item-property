@@ -30,13 +30,13 @@ describe('convert', function () {
       return shouldFulfilled(
         convert(html)
       ).then(function (value) {
-          assert.deepEqual(value, expected);
-          assert.strictEqual(value.ratingCount, expected.ratingCount);
-          assert.strictEqual(value.ratingValue, expected.ratingValue);
-          assert.strictEqual(value.interactionCount.UserDownloads, expected.interactionCount.UserDownloads);
-        }).catch(function (err) {
-          throw err;
-        });
+        assert.deepEqual(value, expected);
+        assert.strictEqual(value.ratingCount, expected.ratingCount);
+        assert.strictEqual(value.ratingValue, expected.ratingValue);
+        assert.strictEqual(value.interactionCount.UserDownloads, expected.interactionCount.UserDownloads);
+      }).catch(function (err) {
+        throw err;
+      });
     });
   });
   context('meta data does not exist', function () {
@@ -45,8 +45,8 @@ describe('convert', function () {
       return shouldRejected(
         convert(html)
       ).catch(function (err) {
-          assert(err instanceof InvalidFormatError);
-        });
+        assert(err instanceof InvalidFormatError);
+      });
     });
   });
 });
