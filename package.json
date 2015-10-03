@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "browserify": "^11.0.1",
-    "conventional-changelog": "^0.4.2",
+    "conventional-changelog": "^0.5.0",
     "david": "^6.1.6",
     "derequire": "^2.0.0",
     "eclint": "^1.1.1",
@@ -30,7 +30,7 @@
     "mocha": "^2.2.5",
     "nock": "^2.10.0",
     "npm-check-updates": "^2.1.0",
-    "power-assert": "^0.11.0",
+    "power-assert": "^1.1.0",
     "promise-test-helper": "^0.2.1",
     "touch": "^1.0.0"
   },
