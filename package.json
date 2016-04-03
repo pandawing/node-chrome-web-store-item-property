@@ -31,8 +31,7 @@
     "nock": "^7.0.2",
     "npm-check-updates": "^2.1.0",
     "power-assert": "^1.1.0",
-    "promise-test-helper": "^0.2.1",
-    "touch": "^1.0.0"
+    "promise-test-helper": "^0.2.1"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -58,7 +57,7 @@
   "repository": "pandawing/node-chrome-web-store-item-property",
   "scripts": {
     "build:browser": "npm update && npm prune && npm dedupe && browserify --standalone chromeWebStoreItemProperty ./index.js | derequire > build/chrome-web-store-item-property.js",
-    "changelog": "touch changelog.md && conventional-changelog -i changelog.md --overwrite --preset angular",
+    "changelog": "conventional-changelog --infile changelog.md --same-file --preset angular",
     "david": "david update",
     "eclint": "globstar --ignore \"node_modules/**\" -- eclint check \"*.{js,yml,md,json}\"",
     "eslint": "eslint --ignore-path .gitignore ./example ./src ./test index.js",
