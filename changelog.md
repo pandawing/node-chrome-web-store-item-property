@@ -1,3 +1,9 @@
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/pandawing/node-chrome-web-store-item-property/compare/v1.1.1...v1.1.2) (2016-04-03)
+
+* Update dependencies
+
+
 <a name="1.1.1"></a>
 ## 1.1.1 (2015-08-22)
 
