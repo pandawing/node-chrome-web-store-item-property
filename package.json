@@ -64,6 +64,7 @@
     "fixpack": "fixpack",
     "git:tag": "git tag v${npm_package_version}",
     "lint": "npm run eclint && npm run eslint",
+    "ncu": "ncu -u",
     "test": "mocha --require ./enable-power-assert.js -- ./test/*test.js",
     "verify": "npm run lint && npm run test"
   }
