@@ -1,5 +1,7 @@
 # https://travis-ci.org/
 language: node_js
 node_js:
-  - '0.12'
+  - "0.12"
+  - "4"
+  - "5"
 script: "npm run verify"
