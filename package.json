@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "browserify": "^13.0.0",
-    "conventional-changelog": "^1.1.0",
     "david": "^7.0.0",
     "derequire": "^2.0.0",
     "eclint": "^1.1.1",
