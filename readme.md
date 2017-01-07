@@ -23,6 +23,7 @@ var chromeWebStoreItemProperty = require('chrome-web-store-item-property');
 // or
 <script src="build/chrome-web-store-item-property.js"></script>
 
+// free app
 chromeWebStoreItemProperty('nimelepbpejjlbmoobocpfnjhihnpked')
   .then(function (value) {
     console.log(value);
@@ -32,7 +33,7 @@ chromeWebStoreItemProperty('nimelepbpejjlbmoobocpfnjhihnpked')
     //  url: 'https://chrome.google.com/webstore/detail/do-not-merge-wip-for-gith/nimelepbpejjlbmoobocpfnjhihnpked',
     //  image: 'https://ssl.gstatic.com/chrome/webstore/images/thumb.png',
     //  version: '1.0.6',
-    //  price: '$0',
+    //  price: '0',
     //  priceCurrency: 'USD',
     //  interactionCount: {
     //    UserDownloads: 418
