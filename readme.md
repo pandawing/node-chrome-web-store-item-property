@@ -44,6 +44,24 @@ chromeWebStoreItemProperty('nimelepbpejjlbmoobocpfnjhihnpked')
     //  id: 'nimelepbpejjlbmoobocpfnjhihnpked'
     //};
   });
+
+// paid app
+chromeWebStoreItemProperty('anhdpjpojoipgpmfanmedjghaligalgb')
+  .then(function (value) {
+    console.log(value);
+    // =>
+    //{
+    //  name: 'JSTorrent',
+    //  url: 'https://chrome.google.com/webstore/detail/jstorrent/anhdpjpojoipgpmfanmedjghaligalgb',
+    //  image: 'https://lh3.googleusercontent.com/vjPcbLBejt-YqEH42E85IhbEMSFShJp8MEWc6NkIIVGOWf0JkCUyB5i1BWrWwu0dxfCPUTxz=s128-h128-e365',
+    //  version: '2.4.3',
+    //  interactionCount: { UserDownloads: 51312 },
+    //  operatingSystem: 'Chrome',
+    //  ratingValue: 4.423273657289003,
+    //  ratingCount: 3128,
+    //  id: 'anhdpjpojoipgpmfanmedjghaligalgb'
+    //}
+  });
 ```
 
 
