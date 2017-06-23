@@ -23,6 +23,7 @@ var chromeWebStoreItemProperty = require('chrome-web-store-item-property');
 // or
 <script src="build/chrome-web-store-item-property.js"></script>
 
+// free app
 chromeWebStoreItemProperty('nimelepbpejjlbmoobocpfnjhihnpked')
   .then(function (value) {
     console.log(value);
@@ -32,7 +33,7 @@ chromeWebStoreItemProperty('nimelepbpejjlbmoobocpfnjhihnpked')
     //  url: 'https://chrome.google.com/webstore/detail/do-not-merge-wip-for-gith/nimelepbpejjlbmoobocpfnjhihnpked',
     //  image: 'https://ssl.gstatic.com/chrome/webstore/images/thumb.png',
     //  version: '1.0.6',
-    //  price: '$0',
+    //  price: '0',
     //  priceCurrency: 'USD',
     //  interactionCount: {
     //    UserDownloads: 418
@@ -42,6 +43,24 @@ chromeWebStoreItemProperty('nimelepbpejjlbmoobocpfnjhihnpked')
     //  ratingCount: 2,
     //  id: 'nimelepbpejjlbmoobocpfnjhihnpked'
     //};
+  });
+
+// paid app
+chromeWebStoreItemProperty('anhdpjpojoipgpmfanmedjghaligalgb')
+  .then(function (value) {
+    console.log(value);
+    // =>
+    //{
+    //  name: 'JSTorrent',
+    //  url: 'https://chrome.google.com/webstore/detail/jstorrent/anhdpjpojoipgpmfanmedjghaligalgb',
+    //  image: 'https://lh3.googleusercontent.com/vjPcbLBejt-YqEH42E85IhbEMSFShJp8MEWc6NkIIVGOWf0JkCUyB5i1BWrWwu0dxfCPUTxz=s128-h128-e365',
+    //  version: '2.4.3',
+    //  interactionCount: { UserDownloads: 51312 },
+    //  operatingSystem: 'Chrome',
+    //  ratingValue: 4.423273657289003,
+    //  ratingCount: 3128,
+    //  id: 'anhdpjpojoipgpmfanmedjghaligalgb'
+    //}
   });
 ```
 
