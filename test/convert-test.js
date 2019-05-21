@@ -18,7 +18,6 @@ describe('convert', function () {
       version: '1.0.6',
       price: '$0',
       priceCurrency: 'USD',
-      lastUpdated: 'August 4, 2015',
       interactionCount: {
         UserDownloads: 418
       },

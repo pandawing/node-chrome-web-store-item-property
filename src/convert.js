@@ -36,10 +36,6 @@ function convert(detailHtml) {
         }
       }
     });
-    var lastUpdatedElement = $('span:contains("Updated")').next();
-    if (lastUpdatedElement.length >0) {
-      itemProps['lastUpdated'] = lastUpdatedElement[0].children[0].data;
-    }
     if (Object.keys(itemProps).length === 0) {
       reject(new InvalidFormatError('There is no meta property'));
       return;
