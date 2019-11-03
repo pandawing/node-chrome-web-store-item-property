@@ -6,18 +6,18 @@ module.exports = function (url, defaultConfig, userConfig) {
   var opts = objectAssign({}, defaultConfig, userConfig);
   opts.url = url;
   var headerCandidate = [{}];
-  if (defaultConfig.hasOwnProperty('headers')) {
+  if (Object.prototype.hasOwnProperty.call(defaultConfig, 'headers')) {
     headerCandidate.push(defaultConfig.headers);
   }
-  if (userConfig.hasOwnProperty('headers')) {
+  if (Object.prototype.hasOwnProperty.call(userConfig, 'headers')) {
     headerCandidate.push(userConfig.headers);
   }
   opts.headers = objectAssign.apply(null, headerCandidate);
   var qsCandidate = [{}];
-  if (defaultConfig.hasOwnProperty('qs')) {
+  if (Object.prototype.hasOwnProperty.call(defaultConfig, 'qs')) {
     qsCandidate.push(defaultConfig.qs);
   }
-  if (userConfig.hasOwnProperty('qs')) {
+  if (Object.prototype.hasOwnProperty.call(userConfig, 'qs')) {
     qsCandidate.push(userConfig.qs);
   }
   opts.qs = objectAssign.apply(null, qsCandidate);

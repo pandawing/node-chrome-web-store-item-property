@@ -40,7 +40,7 @@ function convert(detailHtml) {
       reject(new InvalidFormatError('There is no meta property'));
       return;
     }
-    if (!itemProps.hasOwnProperty('url') || !itemProps['url']) {
+    if (!Object.prototype.hasOwnProperty.call(itemProps, 'url') || !itemProps['url']) {
       reject(new InvalidFormatError('url in response is required'));
       return;
     }
