@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "array-includes": "^3.0.3",
-    "cheerio": "^0.20.0",
+    "cheerio": "^0.22.0",
     "create-error-class": "^3.0.0",
     "es6-promise": "^4.2.8",
     "is-ok": "^1.0.1",
