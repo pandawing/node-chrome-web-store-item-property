@@ -23,7 +23,7 @@
     "david": "^11.0.0",
     "derequire": "^2.0.0",
     "eclint": "^2.8.1",
-    "eslint": "^2.6.0",
+    "eslint": "^6.6.0",
     "espower-loader": "^1.2.2",
     "fixpack": "^2.2.0",
     "globstar": "^1.0.0",
