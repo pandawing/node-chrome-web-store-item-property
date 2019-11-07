@@ -1,7 +1,10 @@
 'use strict';
 var InvalidFormatError = require('./error').InvalidFormatError;
 var Promise = Promise || require('es6-promise').Promise;
-var cheerio = require('cheerio');
+var htmlparser2 = require('htmlparser2');
+var DomHandler = htmlparser2.DomHandler;
+var Parser = htmlparser2.Parser;
+var DomUtils = htmlparser2.DomUtils;
 var includes = require('array-includes');
 var parseFloatWithComma = require('./parse-float-with-comma');
 var keysStringToFloat = [
@@ -12,15 +15,22 @@ var keysStringToFloat = [
 
 function convert(detailHtml) {
   return new Promise(function (resolve, reject) {
-    var $ = cheerio.load(detailHtml);
     var itemProps = {};
     var elementItemProp;
-    $('meta[itemprop]').each(function (index, element) {
+    var options = {};
+    var handler = new DomHandler(null, options);
+    new Parser(handler, options).end(detailHtml);
+    var dom = handler.dom;
+    var containers = DomUtils.getElementsByTagName('meta', dom, true);
+    containers.forEach(function(el) {
+      if (!DomUtils.hasAttrib(el, 'itemprop')) {
+        return;
+      }
       // Split content like <meta itemprop="interactionCount" content="UserDownloads:418" />
-      if ($(element).attr('itemprop') === 'interactionCount' &&
-        $(element).attr('content').indexOf(':') !== -1) {
-        var keyValue = $(element).attr('content').split(':', 2);
-        elementItemProp = $(element).attr('itemprop');
+      if (DomUtils.getAttributeValue(el, 'itemprop') === 'interactionCount' &&
+        DomUtils.getAttributeValue(el, 'content').indexOf(':') !== -1) {
+        var keyValue = DomUtils.getAttributeValue(el, 'content').split(':', 2);
+        elementItemProp = DomUtils.getAttributeValue(el, 'itemprop');
         itemProps[elementItemProp] = itemProps[elementItemProp] || {};
         if (includes(keysStringToFloat, keyValue[0])) {
           itemProps[elementItemProp][keyValue[0]] = parseFloatWithComma(keyValue[1]);
@@ -28,11 +38,11 @@ function convert(detailHtml) {
           itemProps[elementItemProp][keyValue[0]] = keyValue[1];
         }
       } else {
-        elementItemProp = $(element).attr('itemprop');
+        elementItemProp = DomUtils.getAttributeValue(el, 'itemprop');
         if (includes(keysStringToFloat, elementItemProp)) {
-          itemProps[elementItemProp] = parseFloatWithComma($(element).attr('content'));
+          itemProps[elementItemProp] = parseFloatWithComma(DomUtils.getAttributeValue(el, 'content'));
         } else {
-          itemProps[elementItemProp] = $(element).attr('content');
+          itemProps[elementItemProp] = DomUtils.getAttributeValue(el, 'content');
         }
       }
     });
