@@ -11,6 +11,7 @@
     "array-includes": "^3.0.3",
     "create-error-class": "^3.0.0",
     "es6-promise": "^4.2.8",
+    "htmlparser2": "^4.0.0",
     "is-ok": "^1.0.1",
     "node-status-codes": "^3.0.0",
     "object-assign": "^4.1.1",
