@@ -43,6 +43,7 @@ function convert(detailHtml) {
         }
       }
     });
+    handler = null;
     if (Object.keys(itemProps).length === 0) {
       reject(new InvalidFormatError('There is no meta property'));
       return;
