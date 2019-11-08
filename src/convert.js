@@ -24,10 +24,11 @@ function convert(detailHtml) {
       if (!itempropValue) {
         return;
       }
+      var contentValue = DomUtils.getAttributeValue(el, 'content');
       // Split content like <meta itemprop="interactionCount" content="UserDownloads:418" />
-      if (itempropValue === 'interactionCount' &&
-        DomUtils.getAttributeValue(el, 'content').indexOf(':') !== -1) {
-        var keyValue = DomUtils.getAttributeValue(el, 'content').split(':', 2);
+      if (itempropValue === 'interactionCount' && contentValue &&
+        contentValue.indexOf(':') !== -1) {
+        var keyValue = contentValue.split(':', 2);
         itemProps[itempropValue] = itemProps[itempropValue] || {};
         if (includes(keysStringToFloat, keyValue[0])) {
           itemProps[itempropValue][keyValue[0]] = parseFloatWithComma(keyValue[1]);
@@ -36,9 +37,9 @@ function convert(detailHtml) {
         }
       } else {
         if (includes(keysStringToFloat, itempropValue)) {
-          itemProps[itempropValue] = parseFloatWithComma(DomUtils.getAttributeValue(el, 'content'));
+          itemProps[itempropValue] = parseFloatWithComma(contentValue);
         } else {
-          itemProps[itempropValue] = DomUtils.getAttributeValue(el, 'content');
+          itemProps[itempropValue] = contentValue;
         }
       }
     });
