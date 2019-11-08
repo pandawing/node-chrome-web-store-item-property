@@ -20,8 +20,7 @@ function convert(detailHtml) {
     var options = {};
     var handler = new DomHandler(null, options);
     new Parser(handler, options).end(detailHtml);
-    var dom = handler.dom;
-    var containers = DomUtils.getElementsByTagName('meta', dom, true);
+    var containers = DomUtils.getElementsByTagName('meta', handler.dom, true);
     containers.forEach(function(el) {
       if (!DomUtils.hasAttrib(el, 'itemprop')) {
         return;
