@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/pandawing/node-chrome-web-store-item-property/compare/v1.1.3...v1.2.0) (2019-11-08)
+
+
+### Features
+
+* **app:** requires node v8 ([2612e0d](https://github.com/pandawing/node-chrome-web-store-item-property/commit/2612e0d566194b782a2487c54bf58c3a84d08b84))
+* Use htmlparser2 directly
+
+
 ## [1.1.3](https://github.com/pandawing/node-chrome-web-store-item-property/compare/v1.1.2...v1.1.3) (2019-11-03)
 
 * Update dependencies
